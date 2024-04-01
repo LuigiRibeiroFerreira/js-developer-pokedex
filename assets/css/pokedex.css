@@ -1,9 +1,157 @@
+.Header {
+position: relative;
+background-color: #fc1723;
+height: 4rem;
+width: 100vw;
+padding: none;
+margin: none;
+border-bottom: 3px solid #000;
+}
+.Header::after {
+    content: "";
+    position: absolute;
+    bottom: -.9rem; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    width: 20px; 
+    height: 20px; 
+    background-color: white;
+    border: 2px solid black; 
+    border-radius: 50%; 
+  }
+.Header h1{
+    font-size: .7rem;
+    text-align: right;
+    color: whitesmoke;
+    padding: 0;
+    padding-top: 2.4rem;
+    padding-right: 2rem;
+    margin: 0;
+    
+}
 .pokemons {
     display: grid;
     grid-template-columns: 1fr;
     margin: 0;
     padding: 0;
     list-style: none;
+    padding-top: .5rem;
+}
+
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Cor de fundo com transparência para criar um efeito de sobreposição */
+    z-index: 9999; /* Z-index alto para garantir que a modal fique sobreposta a todos os outros elementos */
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    height: 85vh; 
+    overflow: hidden; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pokemon-name {
+    text-align: center;
+    margin-top: 0; /* Remove a margem superior para o nome do Pokémon */
+}
+
+.pokemon-info {
+    display: flex; /* Usando flexbox */
+    flex-direction: column; /* Direção da coluna para alinhar itens verticalmente */
+    align-items: center; /* Alinhar os itens horizontalmente */
+}
+
+.pokemon-image {
+    max-height: calc(30vh - 20px); /* Limita a altura da imagem do Pokémon a 30% da altura da modal, descontando o padding */
+    width: auto; /* Garante que a largura da imagem seja ajustada automaticamente */
+    margin-bottom: 10px; /* Adiciona espaço entre a imagem e as informações */
+}
+
+.measures {
+    display: flex; /* Faz as medidas ficarem lado a lado */
+    justify-content: space-between; /* Alinha as medidas horizontalmente */
+}
+.measures p {
+    margin: 0 5px; /* Adicione um espaçamento horizontal entre as medidas */
+}
+
+.types {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0; /* Adiciona margem superior e inferior para os tipos */
+    display: flex;
+}
+.base-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.stat-item {
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 15vw;
+}
+
+.stat-bar {
+    position: relative; /* Adicione essa propriedade para a posição relativa */
+    background-color: #555655;
+    height: 37%; /* Ajuste conforme necessário */
+    width: 20px;
+    border-radius: 1rem;
+}
+
+.stat-bar::before {
+    content: ''; /* Adicione conteúdo vazio */
+    position: absolute; /* Posicione absolutamente em relação ao elemento pai (.stat-bar) */
+    bottom: 0; /* Alinhe na parte inferior */
+    left: 0; /* Alinhe à esquerda */
+    background-color: var(--stat-color);
+    width: 100%; /* Ocupa toda a largura do elemento pai */
+    height: var(--stat-height); /* Use a variável CSS personalizada */
+    transition: height 0.5s; /* Adicione uma transição suave */
+    border-radius: 1rem;
+}
+
+.stat-value {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.stat-name {
+    margin: 0;
+}
+
+/* Botão de fechar */
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #333;
+    background-color: transparent;
+    border: none;
 }
 
 .normal {
@@ -84,6 +232,11 @@
     margin: .5rem;
     padding: 1rem;
     border-radius: 1rem;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+.pokemon:hover{
+    transform: scale(1.05);
 }
 
 .pokemon .number {
@@ -112,7 +265,7 @@
     list-style: none;
 }
 
-.pokemon .detail .types .type {
+.type {
     color: #fff;
     padding: .25rem .5rem;
     margin: .25rem 0;
@@ -120,6 +273,7 @@
     border-radius: 1rem;
     filter: brightness(1.1);
     text-align: center;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.4);
 }
 
 .pokemon .detail img {
@@ -144,7 +298,14 @@
     background-color: #6c79db;
     border: none;
     border-radius: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
+.pagination button:hover{
+    transform: scale(1.05);
+
+}
+
 
 @media screen and (min-width: 380px) {
     .pokemons {
@@ -160,6 +321,8 @@
 
 @media screen and (min-width: 992px) {
     .pokemons {
+        width: 100%;
         grid-template-columns: 1fr 1fr 1fr 1fr;
+        margin: 0;
     }
 }
